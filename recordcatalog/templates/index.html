@@ -1,0 +1,46 @@
+{% extends "base_generic.html" %}
+{% load extras %}
+{% block content %}
+<div class="container-fluid">
+<br>
+<br>
+<h1>Record Catalog</h1>
+<hr class="mt-0 mb-4">
+<div>
+<h5>recently added...</h5>
+<div class="card-deck">
+{% recently_added %}
+</div>
+</div>
+<br>
+
+<!--Top Values Div-->
+<div class="card-deck px-md-5">
+
+<!--Top Genres Div -->
+<div class="card col-sm-5">
+  <div class="card-body">
+    <h5 class="card-title">Top Genres</h5>
+      {% top_genres as genres %}
+      {% for genre in genres %}
+    <li class="list-group-item"><a href="{% url "genre-detail" genre.2 %}">{{ genre.0 }}: {{ genre.1 }}</a></li>
+      {% endfor %}
+  </div>
+</div>
+
+<!--Top Artists Div -->
+<div class="card col-sm-5">
+  <div class="card-body">
+    <h5 class="card-title">Top Artists</h5>
+    {% top_artists as artists %}
+    {% for artist in artists %}
+    <li class="list-group-item"><a href="{% url "artist-detail" artist.2 %}">{{ artist.0 }}: {{artist.1}}</a></li>
+    {% endfor %}
+  </div>
+  
+</div>
+</div>
+</div>
+{% endblock %}
+
+

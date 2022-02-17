@@ -1,0 +1,79 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<div class="container-fluid">  
+<br>
+<h1 class="text-left display-5">{{ album.title }}</h1>
+<h3><a href="{{ album.artist.get_absolute_url }}">{{ album.artist }}</a></h3>
+<br>
+<hr class="mt-0 mb-4">
+
+
+<div class="table-responsive">
+<table class="table table-striped table-bordered">
+  <tbody>
+    <tr>
+      <td class="table-dark" style="width: 18%">Genre</td>
+      <td style="width: 70%">{{ album.genre.all|join:", " }}</td>
+    </tr>
+    <tr>
+      <td class="table-dark">Release</td>
+      <td>{{album.release_date}}</td>
+    </tr>
+    <tr>
+      <td class="table-dark">Format</td>
+      <td>{{album.album_format}}</td>
+    </tr>
+    <tr>
+      <td class="table-dark">Label</td>
+      <td>{{album.display_label}}</td>
+    </tr>
+    <tr>
+      <td class="table-dark">Condition</td>
+      <td>{{album.condition}}</td>
+    </tr>
+    {% if album.album_image %}
+    <tr>
+      <td class="table-dark">Image</td>
+      <td><img src="{{ album.album_image.url }}" alt="Cover art" width="300"></td>    
+    </tr>
+    {% endif %}
+    <tr>
+      {% if album.album_notes%}
+      <td class="table-dark">Album notes</td>
+      <td>{{ album.album_notes | safe | linebreaks }}</td>
+    </tr>
+    {% endif %}
+    {% if perms.recordcatalog.internal %}
+    {% if album.internal_notes%}
+    <tr>
+      <td class="table-dark">Internal notes</td>
+      <td>{{ album.internal_notes | safe | linebreaks }}</td>
+    </tr>
+    {% endif %}
+    {% endif %}
+    {% if album.barcode %}
+    <tr>
+      <td class="table-dark" style="width: 15%">Catalog number</td>
+      <td>{{ album.catalog_number }}</td>
+    </tr>
+    {% endif %}
+    <tr>
+      <td class="table-dark">Date added</td>
+      <td>{{ album.created_at}}</td>
+    </tr>	
+  </tbody>
+</table>
+</div>
+
+
+
+  {% if perms.recordcatalog.internal %}
+  <a class="btn btn-outline-dark" href="{% url 'album-update' album.id %}" role="button">Update album details</a>
+  <a class="btn btn-outline-dark" href="{% url 'album-delete' album.id %}" role="button">Delete album</a>
+  {% endif %}
+  
+
+</div>
+{% endblock %}

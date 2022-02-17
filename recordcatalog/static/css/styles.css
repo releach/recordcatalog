@@ -1,0 +1,21 @@
+h1 {
+  font-size: 90px;
+  font-weight: normal;
+  margin-top: 5px;
+}
+
+h5 {
+  font-family: Helvetica, sans-serif;
+  color: dimgray;
+  font-variant: small-caps;
+}
+
+.card-img-top {
+    width: 26vw;
+    height: 26vw;
+    object-fit: contain;
+}
+
+.card {
+    left: 10px;
+}

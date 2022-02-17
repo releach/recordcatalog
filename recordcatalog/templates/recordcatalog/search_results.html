@@ -1,0 +1,57 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<div class="container-fluid"><br>
+<h1 class="text-left display-5">Search Results</h1>
+<br>
+{% if search_query %}
+<p>Showing search results for <span class="font-italic">"{{ search_query }}"</span></p>
+<br>
+<br>
+
+
+{% if albums %}
+<h3>Albums</h3>
+<hr class="mt-0 mb-4">
+{% for album in albums %}
+<a href="{{ album.get_absolute_url }}">
+{{ album }} - {{ album.artist }}
+</a>
+<br>
+<br>
+{% endfor %}
+{% endif %}
+
+
+{% if artists %}
+<h3>Artists</h3>
+<hr class="mt-0 mb-4">
+{% for artist in artists %}
+<a href="{{ artist.get_absolute_url }}">
+{{ artist }}
+</a>
+<br>
+<br>
+{% endfor %}
+{% endif %}
+
+
+
+{% if genres %}
+<h3>Genres</h3>
+<hr class="mt-0 mb-4">
+{% for genre in genres %}
+<a href="{{ genre.get_absolute_url }}">
+{{ genre }}
+</a>
+<br>
+<br>
+{% endfor %}
+{% endif %}
+
+
+{% else %}
+<p>You did not search for anything.</p>
+{% endif %}
+</div>
+{% endblock %}

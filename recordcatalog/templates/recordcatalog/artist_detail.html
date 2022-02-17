@@ -1,0 +1,48 @@
+{% extends "base_generic.html" %}
+
+
+
+{% block content %}
+<div class="container-fluid">
+<br>
+<h1 class="text-left display-5">	{% if artist.first_name %}{{artist.first_name}}{% endif %}{% if artist.first_name %} {% endif %}{% if artist.last_name %}{{artist.last_name}}{% endif %}</h1>
+<br>
+<p class="font-italic">{% if artist.date_active_start %}{{artist.date_active_start}}{% endif %}{% if artist.date_active_start %}-{% endif %}{% if artist.date_active_end %}{{artist.date_active_end}}{% endif %}</p>
+<p class="text-left display-5 font-weight-bold">{% if artist.location %}{{artist.location}}{{artist.place}}{% endif %}</p>
+<hr class="mt-0 mb-4">
+
+<!--TABLE ARTIST/ALBUM LIST-->
+<div class="table-responsive">
+{% if artist.album_set.all %}
+<table class="table table-striped table-bordered">
+  <thead class="table-dark"> 
+    <tr>
+      <th scope="col">Album title</th>
+      <th scope="col">Release</th>
+      <th scope="col">Format</th>
+    </tr>
+  </thead>
+
+<tbody>
+{% for album in artist.album_set.all %}
+    <tr>
+      <td><a href="{% url 'album-detail' album.pk %}">{{album}}</a></td>
+      <td>{{album.release_date}}</td>
+      <td>{{album.album_format}}</td>
+    </tr>
+{% endfor %}
+</tbody>
+</table>
+{% else %}
+<p>There are no albums for this artist.</p>
+{% endif %} 
+</div>
+
+
+  {% if perms.recordcatalog.internal %}
+  <a class="btn btn-outline-dark" href="{% url 'artist-update' artist.id %}" role="button">Update artist details</a>
+  <a class="btn btn-outline-dark" href="{% url 'artist-delete' artist.id %}">Delete artist</a>
+  {% endif %}	
+</div>
+
+{% endblock %}

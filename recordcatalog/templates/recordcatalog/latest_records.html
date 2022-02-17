@@ -1,0 +1,13 @@
+{% for album in recent_records %}
+<div class="card" style="width: 15rem;">
+ {% if album.album_image %}
+  <img class="card-img-top" src="{{ album.album_image.url }}" alt="latest_album">
+  {% endif %}
+  <div class="card-body">
+  <p class="card-text"><a href="{{ album.get_absolute_url }}">{{ album.title }}</a></p>
+  </div>
+     <div class="card-footer">
+      <small class="text-muted">Added {{ album.created_at }}</small>
+    </div>
+</div>
+{% endfor %}
