@@ -12,8 +12,9 @@ def lower(value):  # Only one argument.
 
 
 @register.simple_tag
-def any_function():
-    return Album.objects.count()
+def genre_count():
+    gcount = Album.objects.values_list("genre").annotate(genre_count=Count("genre"))
+    return gcount
 
 
 @register.inclusion_tag("recordcatalog/latest_records.html")

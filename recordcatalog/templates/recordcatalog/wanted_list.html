@@ -1,7 +1,17 @@
 {% extends "base_generic.html" %}
 {% load bootstrap %}
+<div class="container-fluid">  
 
 {% block content %}
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Wanted</li>
+  </ol>
+</nav>
+
+
 <div class="container-fluid"><br>
 <h1 class="text-left display-5">Records to Buy</h1>
 <br>

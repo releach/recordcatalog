@@ -1,12 +1,14 @@
 {% for album in recent_records %}
-<div class="card" style="width: 15rem;">
+<div class="card" style="width: 20rem;">
  {% if album.album_image %}
-  <img class="card-img-top" src="{{ album.album_image.url }}" alt="latest_album">
-  {% endif %}
-  <div class="card-body">
-  <p class="card-text"><a href="{{ album.get_absolute_url }}">{{ album.title }}</a></p>
+  <a href="{{album.get_absolute_url}}"><img class="card-img-top mx-auto" src="{{ album.album_image.url }}" alt="latest_album"></a>
+ {% else %}
+   <a href="{{album.get_absolute_url}}"><img class="card-img-top mx-auto" src="https://www.ncenet.com/wp-content/uploads/2020/04/No-image-found.jpg" alt="latest_album"></a>
+ {% endif %}
+  <div class="card-body" style="text-align:center">
+  <h3><a href="{{ album.get_absolute_url }}">{{ album.title }}</a></h3>
   </div>
-     <div class="card-footer">
+     <div class="card-footer" style="text-align:center">
       <small class="text-muted">Added {{ album.created_at }}</small>
     </div>
 </div>

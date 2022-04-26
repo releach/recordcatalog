@@ -23,6 +23,9 @@ class ArtistAdmin(admin.ModelAdmin):
         "first_name",
         ("date_active_start", "date_active_end"),
         "location",
+        "discogs_id",
+        "artist_bio",
+        "image_url",
     )
 
 

@@ -1,63 +1,52 @@
-
 {% extends "base_generic.html" %}
 {% load bootstrap %}
 
+<div class="container-fluid">  
+
+
+
+
 {% block content %}
 
-<!-- Header -->
-<div class="container-fluid">
-  <br>
-<h1 class="text-left display-5">Albums</h1>
-<br>
-<hr class="mt-0 mb-4">
-
-
+<!--BREADCRUMB-->
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Albums</li>
+  </ol>
+</nav>
 
 <!--FILTER-->
-<form method="GET">
-  <div class="form-group">
+<form method="GET" >
+  <!-- <div class="form-group"> -->
+    <div class="form-group col-sm-5 col-md-4">
     {{ filter.form|bootstrap }}
-    <button type="submit" class="btn btn-dark btn-sm">Search
-</button>
+    <button type="submit" class="btn btn-dark btn-sm">Search</button>
   </div>
-</form>
+</form> 
 
 
 
-
-<!--TABLE ALBUM LIST-->
-<div class="table-responsive">
-{% if album_list %}
-<table class="table table-striped table-bordered">
-  <thead class="table-dark"> 
-    <tr>
-      <th scope="col">Title</th>
-      <th scope="col">Artist</th>
-      <th scope="col">Format</th>
-      <th scope="col">Condition</th>
-      <th scope="col">Release</th>
-
-
-    </tr>
-  </thead>
-
-  <tbody>
+<div class="list-grid">
 {% for album in filter.qs %}
-    <tr>
-      <td><a href="{{ album.get_absolute_url }}">{{ album.title }}</a></td>
-      <td>{{album.artist}}</td>
-      <td>{{album.album_format}}</td>
-      <td>{{album.condition}}</td>
-      <td>{{album.release_date}}</td>
+  <div class="list-grid-item">
+    {% if album.album_image %}
+    <a href="{{ album.get_absolute_url }}"><img src="{{album.album_image.url}}" alt="Album Image"></a>
+    {% else %} 
+    <a href="{{ album.get_absolute_url }}"><img src="https://www.ncenet.com/wp-content/uploads/2020/04/No-image-found.jpg" alt="Album Image"></a>
+    {% endif %}  
+    <br>
+    <a href="{{ album.get_absolute_url }}">{{album.title}}</a>
+    <br>
+    <p class="grid-item-para">{% if album.artist.first_name %}{{album.artist.first_name}}{% endif %}{% if album.artist.first_name %} {% endif %}{% if album.artist.last_name %}{{album.artist.last_name}}{% endif %}</p>
+  </div>
 
-    </tr>
 {% endfor %}
-</tbody>
-</table>
-{% else %}
-<p>There are no albums in the library.</p>
-{% endif %} 
-
 </div>
 {% endblock %}
+
+</div>
+
+
+
 

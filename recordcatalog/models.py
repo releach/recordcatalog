@@ -3,6 +3,8 @@ from location_field.models.plain import PlainLocationField
 from django.urls import reverse  # Used to generate URLs by reversing the URL patterns
 import uuid
 from sorl.thumbnail import ImageField
+import requests
+import re
 
 
 class Place(models.Model):
@@ -103,7 +105,9 @@ class Album(models.Model):
 class Artist(models.Model):
     first_name = models.CharField(max_length=100, null=True, blank=True)
     last_name = models.CharField(max_length=100)
-
+    discogs_id = models.CharField("Discogs ID", max_length=50, blank=True, null=True)
+    artist_bio = models.TextField("Artist biography", blank=True, null=True)
+    image_url = models.URLField(max_length=300, blank=True, null=True)
     date_active_start = models.IntegerField("Active", null=True, blank=True)
     date_active_end = models.IntegerField("Retired", null=True, blank=True)
     location = models.ForeignKey(
@@ -121,6 +125,22 @@ class Artist(models.Model):
             return f"{self.last_name}, {self.first_name}"
         else:
             return f"{self.last_name}"
+
+    def bio(self):
+        if not self.artist_bio:
+            if self.discogs_id:
+                CLEANR = re.compile("(\[a=)(.*?)(\])")
+                r = requests.get(
+                    f"https://api.discogs.com/artists/{self.discogs_id}"
+                ).json()
+                if "profile" in r:
+                    profile = r["profile"]
+                    profile = re.sub(CLEANR, r"\2", profile)
+                    self.artist_bio = profile
+                else:
+                    profile = "No profile information available."
+                self.save(update_fields=["artist_bio"])
+                return profile
 
 
 class Wanted(models.Model):

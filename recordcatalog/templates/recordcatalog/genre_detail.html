@@ -1,10 +1,18 @@
 {% extends "base_generic.html" %}
-<!-- {% load thumbnail %} -->
-<div style="margin-left:30px;margin-top:20px">
 
+<div class="container-fluid">
 {% block content %}
 
-<div class="container-fluid"><br>
+<!--BREADCRUMB-->
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page"><a href="{% url 'genres' %}">Genres</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{ genre.name }}</li>
+  </ol>
+</nav>
+
+<br>
 <h1 class="text-left display-5">{{genre.name}}</h1>
 <br>
 <hr class="mt-0 mb-4">

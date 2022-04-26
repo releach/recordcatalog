@@ -1,44 +1,32 @@
 {% extends "base_generic.html" %}
 {% load bootstrap %}
-<div style="margin-left:30px;margin-top:20px">
+
+
+<div class="container-fluid">  
+
 
 {% block content %}
 
-<div class="container-fluid"><br>
-<h1 class="text-left display-5">Genres</h1>
-<br>
-<hr class="mt-0 mb-4">
-
-<!--FILTER-->
-<form method="GET">
-  <div class="form-group">
-    {{ filter.form|bootstrap }}
-    <button type="submit" class="btn btn-dark btn-sm">Search
-</button>
-  </div>
-</form>
+<!--BREADCRUMB-->
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Genres</li>
+  </ol>
+</nav>
 
 
-<!--TABLE GENRE LIST-->
-<div class="table-responsive">
+
+<div class="genre-list-grid">
 {% if genre_list %}
-<table class="table table-striped">
-  <thead class="table-dark"> 
-    <tr>
-      <th scope="col">Name</th>
-    </tr>
-  </thead>
-  <tbody>
-
 {% for genre in filter.qs %}
-    <tr>
-      <td><a href="{{ genre.get_absolute_url }}">{{genre.name}}</a></td>
-    </tr>
+<a href="{{ genre.get_absolute_url }}">{{genre.name}}</a>
 {% endfor %}
-</tbody>
-</table>
 {% else %}
 <p>There are no genres in the library.</p>
 {% endif %} 
 </div>
 {% endblock %}
+  
+
+</div>

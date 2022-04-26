@@ -85,9 +85,7 @@ class ArtistCreate(PermissionRequiredMixin, CreateView):
 class ArtistUpdate(PermissionRequiredMixin, UpdateView):
     permission_required = "recordcatalog.internal"
     model = Artist
-    fields = (
-        "__all__"  # Not recommended (potential security issue if more fields added)
-    )
+    fields = "__all__"
 
 
 class ArtistDelete(PermissionRequiredMixin, DeleteView):
@@ -105,9 +103,7 @@ class AlbumCreate(PermissionRequiredMixin, CreateView):
 class AlbumUpdate(PermissionRequiredMixin, UpdateView):
     permission_required = "recordcatalog.internal"
     model = Album
-    fields = (
-        "__all__"  # Not recommended (potential security issue if more fields added)
-    )
+    fields = "__all__"
 
 
 class AlbumDelete(PermissionRequiredMixin, DeleteView):
